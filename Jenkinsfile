@@ -20,20 +20,18 @@ pipeline {
             }
         }
 
-        stage('Run Playwright Tests') {
+        stage('Execute Playwright Tests') { //
             steps {
-                sh "mkdir -p ${RESULTS_DIR}/playwright"
-                sh "npx playwright test" // Dies führt die Tests aus und generiert die JUnit XML-Datei
-            }
-        }
+                script {
 
-        stage('Publish Test Results & Performance') {
-            steps {
-                junit "${RESULTS_DIR}/**/*.xml" // Veröffentlicht die JUnit-Testergebnisse in Jenkins' Test-Report
+                    stage('Playwright - Prepare Reports') {
+                        sh "mkdir -p ${RESULTS_DIR}/playwright"
+                    }
 
-                // DIES IST DER SCHRITT FÜR DIE PERFORMANCE MESSUNG
-                // Er liest direkt die JUnit XML-Dateien, die bereits existieren
-                performance ReportFiles: "${RESULTS_DIR}/**/*.xml", ReportType: 'JUnit'
+                    stage('Playwright - Run Tests') {
+                        sh "npx playwright test"
+                    }
+                }
             }
         }
     }
