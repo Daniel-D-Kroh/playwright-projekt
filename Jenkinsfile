@@ -34,26 +34,25 @@ pipeline {
             }
         }
 
-        stage('Run Playwright Tests') {
-                        steps {
-                            sh "mkdir -p ${RESULTS_DIR}/playwright"
-                            // Fange die gesamte Konsolenausgabe ab
-                            script {
-                                def output = sh(script: "npx playwright test", returnStdout: true, returnStatus: true)
+        stage('Measure Performance') {
+            steps {
+                script {
+                    // Befehl, um die Gesamtzeit aus dem <testsuite>-Tag zu extrahieren
+                    def totalTime = sh(
+                        script: "grep -oP '<testsuite[^>]*time=\"\\K[0-9.]+' ${PLAYWRIGHT_REPORT_FILE} | head -1",
+                        returnStdout: true
+                    ).trim()
 
-                                // Hier kannst du die Ausgabe nach der Zeit filtern
-                                // (Beispiel: "3 passed (1.7s)")
-                                def match = output.stdout =~ /.*?\((\d+\.?\d*)s\)/
-                                if (match) {
-                                    def totalTime = match[0][1]
-                                    echo "Playwright Gesamtlaufzeit: ${totalTime} Sekunden"
-                                    currentBuild.description = "Playwright Tests: ${totalTime}s"
-                                } else {
-                                    echo "Konnte Laufzeit aus Konsolenausgabe nicht extrahieren."
-                                }
-                            }
-                        }
+                    if (totalTime) {
+                        echo "Playwright Gesamtlaufzeit: ${totalTime} Sekunden"
+                        currentBuild.description = "Playwright Tests: ${totalTime}s"
+                    } else {
+                        echo "FEHLER: Konnte Gesamtlaufzeit aus ${PLAYWRIGHT_REPORT_FILE} nicht extrahieren."
+                        currentBuild.description = "Playwright Tests: Laufzeit unbekannt"
                     }
+                }
+            }
+        }
     }
 
     post {
