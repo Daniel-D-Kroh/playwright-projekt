@@ -23,18 +23,46 @@ pipeline {
         stage('Run Playwright Tests') {
             steps {
                 sh "mkdir -p ${RESULTS_DIR}/playwright"
-                sh "npx playwright test" // Ausführung der Playwright Tests
+                script {
+                    // ACHTUNG: Der sh-Befehl MUSS so aussehen, mit runden Klammern um die Parameter.
+                    def playwrightResult = sh(
+                        script: "npx playwright test",
+                        returnStdout: true,
+                        returnStatus: true
+                    )
+
+                    def match = playwrightResult.stdout =~ /.*\((\d+\.?\d*)s\)/
+                    def totalTime = 'unbekannt'
+
+                    if (match) {
+                        totalTime = match[0][1]
+                        echo "Playwright Gesamtlaufzeit: ${totalTime} Sekunden"
+                    } else {
+                        echo "FEHLER: Konnte Gesamtlaufzeit aus Playwright-Output nicht extrahieren."
+                        echo "Vollständiger Playwright Output war:\n${playwrightResult.stdout}"
+                    }
+
+                    currentBuild.description = "Playwright Tests: ${totalTime}s"
+
+                    // Fehlerbehandlung: Wenn der Testlauf selbst fehlschlägt
+                    if (playwrightResult.status != 0) {
+                        error "Playwright Tests sind mit Exit-Code ${playwrightResult.status} fehlgeschlagen."
+                    }
+                }
             }
         }
 
-        stage('Publish Test Results & Performance') {
+        stage('Publish Test Results') {
             steps {
-                junit "${RESULTS_DIR}/**/*.xml" // Veröffentlicht die JUnit-Testergebnisse
+                junit "${RESULTS_DIR}/**/*.xml"
+            }
+        }
 
-                // Füge diese Zeile für das Performance Plugin hinzu:
-                // Es verwendet die gleichen JUnit XML-Dateien wie das JUnit-Plugin
-                // Der Type ist 'JUnit' und die Report Files sind die XMLs, die du bereits erzeugst
-                performance ReportFiles: "${RESULTS_DIR}/**/*.xml", ReportType: 'JUnit'
+        stage('Generate Performance Report') {
+            steps {
+                script {
+                    echo "Manuelle Analyse der Laufzeiten aus JUnit-Reports oder Konsolenausgabe."
+                }
             }
         }
     }
