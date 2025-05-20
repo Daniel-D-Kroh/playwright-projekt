@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PLAYWRIGHT_PROJECT_PATH = '/Users/dannydkroh/Documents/git/playwright-project' // Pfad Playwright-Projekt
+        PLAYWRIGHT_PROJECT_PATH = '.' // Aktuelle Verzeichnis
         RESULTS_DIR = 'test-results' // Verzeichnis für Reports
     }
 
@@ -44,21 +44,12 @@ pipeline {
                 junit "${RESULTS_DIR}/**/*.xml"
             }
         }
-
-        // Optional: Performance Report (benötigt Performance Plugin)
-        stage('Generate Performance Report') {
-            steps {
-                script {
-                    echo "Manuelle Analyse der Laufzeiten aus JUnit-Reports oder Konsolenausgabe."
-                }
-            }
-        }
     }
 
     post {
         always {
             archiveArtifacts artifacts: "${RESULTS_DIR}/**/*", fingerprint: true
-            deleteDir() // Bereinigt den Workspace
+            deleteDir()
         }
     }
 }

@@ -6,7 +6,7 @@ module.exports = defineConfig({
     forbidOnly: !!process.env.CI,
     retries: process.env.CI ? 2 : 0,
     workers: process.env.CI ? 1 : undefined,
-    reporter: [['list'], ['junit', { outputFile: 'results/playwright-results.xml' }]], // List für Konsole, JUnit für Report
+    reporter: [['list'], ['junit', { outputFile: process.env.CI ? '../test-results/playwright/playwright-results.xml' : 'results/playwright-results.xml' }]],
     use: {
         trace: 'on-first-retry',
     },
