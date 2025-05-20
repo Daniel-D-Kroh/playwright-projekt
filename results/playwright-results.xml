@@ -1,2 +1,10 @@
-<testsuites id="" name="" tests="0" failures="0" skipped="0" errors="0" time="0.002919999999999959">
+<testsuites id="" name="" tests="3" failures="0" skipped="0" errors="0" time="2.967777">
+<testsuite name="example.spec.ts" timestamp="2025-05-20T13:52:13.678Z" hostname="chromium" tests="3" failures="0" skipped="0" time="3.031" errors="0">
+<testcase name="Example Website Tests › should have the correct title" classname="example.spec.ts" time="1.011">
+</testcase>
+<testcase name="Example Website Tests › should display the main heading text" classname="example.spec.ts" time="1.01">
+</testcase>
+<testcase name="Example Website Tests › should show correct paragraph text" classname="example.spec.ts" time="1.01">
+</testcase>
+</testsuite>
 </testsuites>
