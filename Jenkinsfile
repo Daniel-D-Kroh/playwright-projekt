@@ -4,6 +4,7 @@ pipeline {
     environment {
         PLAYWRIGHT_PROJECT_PATH = '.'
         RESULTS_DIR = 'test-results'
+        PLAYWRIGHT_REPORT_FILE = "${RESULTS_DIR}/playwright/playwright-results.xml"
     }
 
     stages {
@@ -15,8 +16,6 @@ pipeline {
 
         stage('Install Playwright Dependencies') {
             steps {
-                // Füge diese Zeile hinzu, um den PATH zu überprüfen
-                sh 'echo "PATH is: $PATH"'
                 sh 'npm install'
                 sh 'npx playwright install --with-deps'
             }
@@ -35,10 +34,19 @@ pipeline {
             }
         }
 
-        stage('Generate Performance Report') {
+        stage('Measure Performance') {
             steps {
                 script {
-                    echo "Manuelle Analyse der Laufzeiten aus JUnit-Reports oder Konsolenausgabe."
+                    def totalTime = sh(
+                        script: "grep -oP '(?<=time=\")[0-9.]+(?=\")' ${PLAYWRIGHT_REPORT_FILE} | awk '{s+=\$1} END {print s}'",
+                        returnStdout: true
+                    ).trim()
+
+                    echo "Playwright Gesamtlaufzeit: ${totalTime} Sekunden"
+
+                    //Visualisierung der Parameter
+                    currentBuild.description = "Playwright Tests: ${totalTime}s"
+
                 }
             }
         }
