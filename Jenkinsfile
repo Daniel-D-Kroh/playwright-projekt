@@ -24,14 +24,15 @@ pipeline {
             steps {
                 sh "mkdir -p ${RESULTS_DIR}/playwright"
                 script {
-                    // WICHTIGE ÄNDERUNG HIER: Übergabe der Parameter als Map
+                    // WICHTIG: Die Parameter MÜSSEN in runden Klammern übergeben werden,
+                    // damit sie als Map verstanden werden und das Ergebnis
+                    // stdout und status enthält.
                     def playwrightResult = sh(
                         script: "npx playwright test",
                         returnStdout: true,
-                        returnStatus: true // Brauchen wir immer noch, um den Exit-Code zu bekommen
+                        returnStatus: true
                     )
 
-                    // Jetzt greifen wir auf playwrightResult.stdout zu
                     def match = playwrightResult.stdout =~ /.*\((\d+\.?\d*)s\)/
                     def totalTime = 'unbekannt'
 
