@@ -24,9 +24,10 @@ pipeline {
             steps {
                 sh "mkdir -p ${RESULTS_DIR}/playwright"
                 script {
-                    // WICHTIG: Die Parameter MÜSSEN in runden Klammern übergeben werden,
-                    // damit sie als Map verstanden werden und das Ergebnis
-                    // stdout und status enthält.
+                    // **DIESE ZEILE IST ENTSCHEIDEND**
+                    // Stelle sicher, dass sh mit einer Map als Parameter aufgerufen wird.
+                    // Die Klammern um die Parameter sind hier IMMER notwendig,
+                    // wenn du returnStdout und returnStatus verwendest.
                     def playwrightResult = sh(
                         script: "npx playwright test",
                         returnStdout: true,
@@ -42,14 +43,14 @@ pipeline {
                     } else {
                         echo "FEHLER: Konnte Gesamtlaufzeit aus Playwright-Output nicht extrahieren."
                         // Optional: Den vollständigen Output ausgeben zur Fehlersuche
-                        // echo "Playwright Output war:\n${playwrightResult.stdout}"
+                        echo "Vollständiger Playwright Output war:\n${playwrightResult.stdout}"
                     }
 
                     currentBuild.description = "Playwright Tests: ${totalTime}s"
 
-                    // Wichtig: Wenn der Testlauf selbst fehlschlägt (z.B. weil Playwright nicht 0 zurückgibt)
-                    // und du willst, dass der Jenkins-Build fehlschlägt, dann:
+                    // Behandle den Exit-Code des Testlaufs
                     if (playwrightResult.status != 0) {
+                        // Markiere den Build als fehlgeschlagen, wenn die Tests selbst fehlschlagen
                         error "Playwright Tests sind mit Exit-Code ${playwrightResult.status} fehlgeschlagen."
                     }
                 }
