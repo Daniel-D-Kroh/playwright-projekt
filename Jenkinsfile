@@ -34,22 +34,26 @@ pipeline {
             }
         }
 
-        stage('Measure Performance') {
-            steps {
-                script {
-                    def totalTime = sh(
-                        script: "grep -oP '(?<=time=\")[0-9.]+(?=\")' ${PLAYWRIGHT_REPORT_FILE} | awk '{s+=\$1} END {print s}'",
-                        returnStdout: true
-                    ).trim()
+        stage('Run Playwright Tests') {
+                        steps {
+                            sh "mkdir -p ${RESULTS_DIR}/playwright"
+                            // Fange die gesamte Konsolenausgabe ab
+                            script {
+                                def output = sh(script: "npx playwright test", returnStdout: true, returnStatus: true)
 
-                    echo "Playwright Gesamtlaufzeit: ${totalTime} Sekunden"
-
-                    //Visualisierung der Parameter
-                    currentBuild.description = "Playwright Tests: ${totalTime}s"
-
-                }
-            }
-        }
+                                // Hier kannst du die Ausgabe nach der Zeit filtern
+                                // (Beispiel: "3 passed (1.7s)")
+                                def match = output.stdout =~ /.*?\((\d+\.?\d*)s\)/
+                                if (match) {
+                                    def totalTime = match[0][1]
+                                    echo "Playwright Gesamtlaufzeit: ${totalTime} Sekunden"
+                                    currentBuild.description = "Playwright Tests: ${totalTime}s"
+                                } else {
+                                    echo "Konnte Laufzeit aus Konsolenausgabe nicht extrahieren."
+                                }
+                            }
+                        }
+                    }
     }
 
     post {
