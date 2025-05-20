@@ -15,6 +15,8 @@ pipeline {
 
         stage('Install Playwright Dependencies') {
             steps {
+                // Füge diese Zeile hinzu, um den PATH zu überprüfen
+                sh 'echo "PATH is: $PATH"'
                 sh 'npm install'
                 sh 'npx playwright install --with-deps'
             }
