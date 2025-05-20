@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/Daniel-D-Kroh/playwright-projekt.git' // Repo-URL
+                git branch: 'main', url: 'https://github.com/Daniel-D-Kroh/playwright-projekt.git'
             }
         }
 
@@ -25,12 +25,19 @@ pipeline {
                 sh "mkdir -p ${RESULTS_DIR}/playwright"
                 sh "npx playwright test"
             }
-
         }
 
         stage('Publish Test Results') {
             steps {
                 junit "${RESULTS_DIR}/**/*.xml"
+            }
+        }
+
+        stage('Generate Performance Report') {
+            steps {
+                script {
+                    echo "Manuelle Analyse der Laufzeiten aus JUnit-Reports oder Konsolenausgabe."
+                }
             }
         }
     }
