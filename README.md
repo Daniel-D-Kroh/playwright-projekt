@@ -89,3 +89,16 @@ Hier findest du eine Zusammenfassung der gebräuchlichsten Playwright-Befehle, d
     ```bash
     npx playwright show-report
     ```
+
+
+### Code-Generierung (Codegen)
+
+* **Testcode generieren**
+  Startet den Playwright Codegen, der deine Browser-Interaktionen aufzeichnet und Playwright-Testcode generiert. Du kannst eine Start-URL angeben oder sie direkt im geöffneten Browserfenster eingeben.
+    ```bash
+    npx playwright codegen
+    # Oder mit einer Start-URL
+    npx playwright codegen [https://www.example.com](https://www.example.com)
+    ```
+  Nach dem Start öffnet sich ein Browserfenster. Deine Aktionen im Browser werden in Playwright-Code umgewandelt und in einem separaten Fenster angezeigt, wo du den Code kopieren und in deine Testdateien einfügen kannst.
+
