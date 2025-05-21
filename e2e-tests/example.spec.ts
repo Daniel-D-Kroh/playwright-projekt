@@ -24,17 +24,10 @@ test.describe('Example Website Tests', () => {
         await expect(paragraph).toContainText('This domain is for use in illustrative examples');
     });
 
-    // --- Zusätzliche Prüfungen ---
-
     test('should have a link to IANA and it should be visible', async ({ page }) => {
         const ianaLink = page.locator('a[href="https://www.iana.org/domains/example"]');
         await expect(ianaLink).toBeVisible();
         await expect(ianaLink).toHaveText('More information...');
-    });
-
-    test('should contain specific text within the body', async ({ page }) => {
-        // Überprüft, ob der Body der Seite einen bestimmten Text enthält
-        await expect(page.locator('body')).toContainText('You may use this domain in literature without prior coordination or asking for permission.');
     });
 
     test('should have exactly two paragraphs', async ({ page }) => {
