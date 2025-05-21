@@ -1,20 +1,11 @@
-<testsuites id="" name="" tests="8" failures="0" skipped="0" errors="0" time="1.574694">
-<testsuite name="example.spec.ts" timestamp="2025-05-21T08:25:35.362Z" hostname="chromium" tests="8" failures="0" skipped="0" time="1.093" errors="0">
-<testcase name="Example Website Tests › should have the correct title" classname="example.spec.ts" time="0.265">
-</testcase>
-<testcase name="Example Website Tests › should display the main heading text" classname="example.spec.ts" time="0.134">
-</testcase>
-<testcase name="Example Website Tests › should show correct paragraph text" classname="example.spec.ts" time="0.098">
-</testcase>
-<testcase name="Example Website Tests › should have a link to IANA and it should be visible" classname="example.spec.ts" time="0.098">
-</testcase>
-<testcase name="Example Website Tests › should contain specific text within the body" classname="example.spec.ts" time="0.17">
-</testcase>
-<testcase name="Example Website Tests › should have exactly two paragraphs" classname="example.spec.ts" time="0.099">
-</testcase>
-<testcase name="Example Website Tests › should have the correct character encoding meta tag" classname="example.spec.ts" time="0.111">
-</testcase>
-<testcase name="Example Website Tests › should have a viewport meta tag" classname="example.spec.ts" time="0.118">
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="1.3181290000000008">
+<testsuite name="example1.spec.ts" timestamp="2025-05-21T08:36:44.770Z" hostname="chromium" tests="1" failures="0" skipped="0" time="0.359" errors="0">
+<testcase name="Example Website Tests › should have the correct title" classname="example1.spec.ts" time="0.359">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|../test-results/example1-Example-Website-Tests-should-have-the-correct-title-chromium/trace.zip]]
+]]>
+</system-out>
 </testcase>
 </testsuite>
 </testsuites>
