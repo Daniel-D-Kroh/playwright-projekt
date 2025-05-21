@@ -29,7 +29,7 @@ pipeline {
                     }
 
                     stage('Playwright - Run Tests') {
-                        sh "npx playwright test"
+                        sh "npx playwright test --headed"
                     }
                 }
             }
