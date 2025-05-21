@@ -16,7 +16,7 @@ module.exports = defineConfig({
 
     // Anzahl der parallel laufenden Worker
     // In CI: 1 Worker, sonst: unbegrenzt (basierend auf CPU-Kernen)
-    workers: process.env.CI ? 1 : undefined,
+    workers: process.env.CI ? 1 : 1,
 
     // Konfiguration der Reporter für Testergebnisse
     reporter: [
