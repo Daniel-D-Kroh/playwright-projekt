@@ -1,4 +1,4 @@
-const { test, expect } = require('@playwright/test');
+import {test, expect} from '@playwright/test';
 
 // Test Suite: Beschreibt eine Gruppe von Tests
 test.describe('Example Website Tests', () => {
