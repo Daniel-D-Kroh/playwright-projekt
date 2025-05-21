@@ -1,9 +1,51 @@
-<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="1.3181290000000008">
-<testsuite name="example1.spec.ts" timestamp="2025-05-21T08:36:44.770Z" hostname="chromium" tests="1" failures="0" skipped="0" time="0.359" errors="0">
-<testcase name="Example Website Tests › should have the correct title" classname="example1.spec.ts" time="0.359">
+<testsuites id="" name="" tests="9" failures="1" skipped="0" errors="0" time="8.796933999999998">
+<testsuite name="example.spec.ts" timestamp="2025-05-21T10:53:10.108Z" hostname="chromium" tests="8" failures="0" skipped="0" time="1.111" errors="0">
+<testcase name="Example Website Tests › should have the correct title" classname="example.spec.ts" time="0.255">
+</testcase>
+<testcase name="Example Website Tests › should display the main heading text" classname="example.spec.ts" time="0.136">
+</testcase>
+<testcase name="Example Website Tests › should show correct paragraph text" classname="example.spec.ts" time="0.11">
+</testcase>
+<testcase name="Example Website Tests › should have a link to IANA and it should be visible" classname="example.spec.ts" time="0.14">
+</testcase>
+<testcase name="Example Website Tests › should contain specific text within the body" classname="example.spec.ts" time="0.106">
+</testcase>
+<testcase name="Example Website Tests › should have exactly two paragraphs" classname="example.spec.ts" time="0.126">
+</testcase>
+<testcase name="Example Website Tests › should have the correct character encoding meta tag" classname="example.spec.ts" time="0.1">
+</testcase>
+<testcase name="Example Website Tests › should have a viewport meta tag" classname="example.spec.ts" time="0.138">
+</testcase>
+</testsuite>
+<testsuite name="example1.spec.ts" timestamp="2025-05-21T10:53:10.108Z" hostname="chromium" tests="1" failures="1" skipped="0" time="7.056" errors="0">
+<testcase name="Volksbank User Website Tests › Sollte einen neuen Bankkunden erfolgreich registrieren" classname="example1.spec.ts" time="7.056">
+<failure message="example1.spec.ts:18:9 Sollte einen neuen Bankkunden erfolgreich registrieren" type="FAILURE">
+<![CDATA[  [chromium] › example1.spec.ts:18:9 › Volksbank User Website Tests › Sollte einen neuen Bankkunden erfolgreich registrieren › Schritt 2: Persönliche Daten eingeben 
+
+    Error: locator.click: Error: strict mode violation: locator('div').filter({ hasText: /^Deutschland$/ }) resolved to 2 elements:
+        1) <div _ngcontent-ng-c38796930="" class="d-flex justify-content-between">…</div> aka locator('#mat-option-16 div').filter({ hasText: 'Deutschland' })
+        2) <div _ngcontent-ng-c38796930="" class="d-flex justify-content-between">…</div> aka locator('#mat-option-266 div').filter({ hasText: 'Deutschland' })
+
+    Call log:
+      - waiting for locator('div').filter({ hasText: /^Deutschland$/ })
+
+
+      40 |             await page.getByText('Deutschland').click();
+      41 |             await page.getByRole('combobox', { name: 'Staatsangehörigkeit (Land)' }).click();
+    > 42 |             await page.locator('div').filter({ hasText: /^Deutschland$/ }).click();
+         |                                                                            ^
+      43 |             await page.getByText('Familienstand (optional)').click();
+      44 |             await page.locator('div').filter({ hasText: /^getrennt lebend$/ }).click();
+      45 |             await page.getByRole('button', { name: 'Weiter' }).click();
+        at /Users/dannydkroh/Documents/git/playwright-project/e2e-tests/example1.spec.ts:42:76
+        at /Users/dannydkroh/Documents/git/playwright-project/e2e-tests/example1.spec.ts:30:9
+
+    Error Context: ../test-results/example1-Volksbank-User-We-7561f-en-erfolgreich-registrieren-chromium/error-context.md
+]]>
+</failure>
 <system-out>
 <![CDATA[
-[[ATTACHMENT|../test-results/example1-Example-Website-Tests-should-have-the-correct-title-chromium/trace.zip]]
+[[ATTACHMENT|../test-results/example1-Volksbank-User-We-7561f-en-erfolgreich-registrieren-chromium/error-context.md]]
 ]]>
 </system-out>
 </testcase>
