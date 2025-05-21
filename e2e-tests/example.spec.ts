@@ -10,25 +10,49 @@ test.describe('Example Website Tests', () => {
         await page.goto('https://www.example.com');
     });
 
-    // Einzelner Testfall: Besucht die Seite und überprüft den Titel
     test('should have the correct title', async ({ page }) => {
-        // Erwartet, dass der Titel der Seite "Example Domain" ist
         await expect(page).toHaveTitle(/Example Domain/);
     });
 
-    // Einzelner Testfall: Überprüft den Hauptüberschriftstext
     test('should display the main heading text', async ({ page }) => {
-        // Sucht das H1-Element und erwartet, dass es den Text "Example Domain" enthält
         const heading = page.locator('h1');
         await expect(heading).toHaveText('Example Domain');
     });
 
     test('should show correct paragraph text', async ({ page }) => {
-        // Sucht den ersten Absatz (<p>-Tag)
         const paragraph = page.locator('p').first();
-        // Erwartet, dass der Absatz einen Teil des erwarteten Textes enthält
         await expect(paragraph).toContainText('This domain is for use in illustrative examples');
     });
 
+    // --- Zusätzliche Prüfungen ---
+
+    test('should have a link to IANA and it should be visible', async ({ page }) => {
+        const ianaLink = page.locator('a[href="https://www.iana.org/domains/example"]');
+        await expect(ianaLink).toBeVisible();
+        await expect(ianaLink).toHaveText('More information...');
+    });
+
+    test('should contain specific text within the body', async ({ page }) => {
+        // Überprüft, ob der Body der Seite einen bestimmten Text enthält
+        await expect(page.locator('body')).toContainText('You may use this domain in literature without prior coordination or asking for permission.');
+    });
+
+    test('should have exactly two paragraphs', async ({ page }) => {
+        // Zählt die Anzahl der <p>-Elemente auf der Seite
+        const paragraphs = page.locator('p');
+        await expect(paragraphs).toHaveCount(2);
+    });
+
+    test('should have the correct character encoding meta tag', async ({ page }) => {
+        // Prüft, ob das Meta-Tag für die Zeichenkodierung korrekt ist
+        const metaCharset = page.locator('meta[charset]');
+        await expect(metaCharset).toHaveAttribute('charset', 'utf-8');
+    });
+
+    test('should have a viewport meta tag', async ({ page }) => {
+        // Prüft, ob ein Viewport-Meta-Tag vorhanden ist (wichtig für Responsiveness)
+        const metaViewport = page.locator('meta[name="viewport"]');
+        await expect(metaViewport).toBeHidden();
+    });
 
 });

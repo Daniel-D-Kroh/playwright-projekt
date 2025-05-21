@@ -1,10 +1,20 @@
-<testsuites id="" name="" tests="3" failures="0" skipped="0" errors="0" time="2.967777">
-<testsuite name="example.spec.ts" timestamp="2025-05-20T13:52:13.678Z" hostname="chromium" tests="3" failures="0" skipped="0" time="3.031" errors="0">
-<testcase name="Example Website Tests › should have the correct title" classname="example.spec.ts" time="1.011">
+<testsuites id="" name="" tests="8" failures="0" skipped="0" errors="0" time="1.574694">
+<testsuite name="example.spec.ts" timestamp="2025-05-21T08:25:35.362Z" hostname="chromium" tests="8" failures="0" skipped="0" time="1.093" errors="0">
+<testcase name="Example Website Tests › should have the correct title" classname="example.spec.ts" time="0.265">
 </testcase>
-<testcase name="Example Website Tests › should display the main heading text" classname="example.spec.ts" time="1.01">
+<testcase name="Example Website Tests › should display the main heading text" classname="example.spec.ts" time="0.134">
 </testcase>
-<testcase name="Example Website Tests › should show correct paragraph text" classname="example.spec.ts" time="1.01">
+<testcase name="Example Website Tests › should show correct paragraph text" classname="example.spec.ts" time="0.098">
+</testcase>
+<testcase name="Example Website Tests › should have a link to IANA and it should be visible" classname="example.spec.ts" time="0.098">
+</testcase>
+<testcase name="Example Website Tests › should contain specific text within the body" classname="example.spec.ts" time="0.17">
+</testcase>
+<testcase name="Example Website Tests › should have exactly two paragraphs" classname="example.spec.ts" time="0.099">
+</testcase>
+<testcase name="Example Website Tests › should have the correct character encoding meta tag" classname="example.spec.ts" time="0.111">
+</testcase>
+<testcase name="Example Website Tests › should have a viewport meta tag" classname="example.spec.ts" time="0.118">
 </testcase>
 </testsuite>
 </testsuites>
