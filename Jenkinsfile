@@ -33,7 +33,7 @@ pipeline {
                     }
 
                     stage('Playwright - Run Test 2') {
-                        sh "npx playwright test --project=chromium example.spec.js"
+                        sh "npx playwright test --project=chromium example1.spec.js"
                     }
 
                 }
