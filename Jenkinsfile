@@ -29,11 +29,11 @@ pipeline {
                     }
 
                     stage('Playwright - Run Test 1') {
-                        sh "npx playwright test --project=chromium example.spec.js"
+                        sh "npx playwright test --project=chromium example.spec.ts"
                     }
 
                     stage('Playwright - Run Test 2') {
-                        sh "npx playwright test --project=chromium example1.spec.js"
+                        sh "npx playwright test --project=chromium example1.spec.ts"
                     }
 
                 }
