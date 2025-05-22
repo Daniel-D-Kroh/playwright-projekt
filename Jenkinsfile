@@ -28,9 +28,18 @@ pipeline {
                         sh "mkdir -p ${RESULTS_DIR}/playwright"
                     }
 
-                    stage('Playwright - Run Tests') {
-                        sh "npx playwright test --headed"
-                    }
+
+                    stage('Playwright - Run Specific Test 1') {
+                        dir("${PLAYWRIGHT_PROJECT_PATH}") {
+                            sh "npx playwright test --project=chromium tests/example.spec.js"
+                        }
+                     }
+
+                     stage('Playwright - Run Specific Test 2') {
+                         dir("${PLAYWRIGHT_PROJECT_PATH}") {
+                             sh "npx playwright test --project=chromium tests/example1.spec.js"
+                         }
+                      }
                 }
             }
         }
