@@ -1,18 +1,6 @@
-<testsuites id="" name="" tests="7" failures="0" skipped="0" errors="0" time="1.997448">
-<testsuite name="example.spec.ts" timestamp="2025-05-21T13:04:44.976Z" hostname="chromium" tests="7" failures="0" skipped="0" time="1.347" errors="0">
-<testcase name="Example Website Tests › should have the correct title" classname="example.spec.ts" time="0.335">
-</testcase>
-<testcase name="Example Website Tests › should display the main heading text" classname="example.spec.ts" time="0.117">
-</testcase>
-<testcase name="Example Website Tests › should show correct paragraph text" classname="example.spec.ts" time="0.231">
-</testcase>
-<testcase name="Example Website Tests › should have a link to IANA and it should be visible" classname="example.spec.ts" time="0.136">
-</testcase>
-<testcase name="Example Website Tests › should have exactly two paragraphs" classname="example.spec.ts" time="0.169">
-</testcase>
-<testcase name="Example Website Tests › should have the correct character encoding meta tag" classname="example.spec.ts" time="0.211">
-</testcase>
-<testcase name="Example Website Tests › should have a viewport meta tag" classname="example.spec.ts" time="0.148">
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="17.236622999999998">
+<testsuite name="example1.spec.ts" timestamp="2025-05-25T12:17:10.570Z" hostname="chromium" tests="1" failures="0" skipped="0" time="16.747" errors="0">
+<testcase name="Volksbank User Website Tests › Sollte einen neuen Bankkunden erfolgreich registrieren" classname="example1.spec.ts" time="16.747">
 </testcase>
 </testsuite>
 </testsuites>

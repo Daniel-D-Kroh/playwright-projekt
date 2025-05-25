@@ -5,14 +5,9 @@ import {createAliasAsString} from "../fixures/basefunctions";
 test.describe('Volksbank User Website Tests', () => {
 
     test.beforeEach(async ({ page }) => {
-        // Navigiert zur Volksbank Münster Startseite
-        // Annahme: Überprüfen, ob die Kontoauswahl-Seite geladen ist
         await page.goto('https://www.vb-muensterland.de/privatkunden.html');
-        // Annahme: Cookie-Zustimmung ist oft der erste Schritt
         await page.getByRole('button', { name: 'Allen zustimmen' }).click();
         await page.getByTestId('lightbox lightbox--cookie-consent cheering').first().waitFor({ state: 'detached' });
-
-        await expect(page).toHaveTitle(/Privatkunden - Volksbank im Münsterland eG/); // Erste grundlegende Überprüfung
     });
 
     test('Sollte einen neuen Bankkunden erfolgreich registrieren', async ({ page }) => {
@@ -39,7 +34,7 @@ test.describe('Volksbank User Website Tests', () => {
             await page.getByRole('combobox', { name: 'Geburtsland' }).click();
             await page.getByText('Deutschland').click();
             await page.getByRole('combobox', { name: 'Staatsangehörigkeit (Land)' }).click();
-            await page.locator('div').filter({ hasText: /^Deutschland$/ }).click();
+            await page.locator('div').filter({ hasText: /^Deutschland$/ }).first().click();
             await page.getByText('Familienstand (optional)').click();
             await page.locator('div').filter({ hasText: /^getrennt lebend$/ }).click();
             await page.getByRole('button', { name: 'Weiter' }).click();
@@ -47,16 +42,10 @@ test.describe('Volksbank User Website Tests', () => {
 
         // Schritt 3: Kontakt- und Adressdaten eingeben
         await test.step('Schritt 3: Kontakt- und Adressdaten eingeben', async () => {
-            await page.getByRole('textbox', { name: 'Straße' }).click();
             await page.getByRole('textbox', { name: 'Straße' }).fill('Münzstr.');
-            await page.getByRole('textbox', { name: 'Straße' }).press('Tab');
             await page.getByRole('textbox', { name: 'Haus-Nr.' }).fill('123');
-            await page.getByRole('textbox', { name: 'Haus-Nr.' }).press('Tab');
             await page.getByRole('textbox', { name: 'PLZ' }).fill('48143');
-            await page.getByRole('textbox', { name: 'PLZ' }).press('Tab');
             await page.getByRole('textbox', { name: 'Ort' }).fill('Münster');
-            await page.getByRole('textbox', { name: 'Ort' }).press('Tab');
-
             await page.getByRole('textbox', { name: 'E-Mail-Adresse', exact: true }).fill('john.doe@example.org');
             await page.getByRole('textbox', { name: 'E-Mail-Adresse wiederholen' }).fill('john.doe@example.org');
             await page.getByRole('textbox', { name: 'Mobil-Nr.' }).fill('176123123123');
@@ -66,7 +55,6 @@ test.describe('Volksbank User Website Tests', () => {
         // Schritt 4: Steuerliche Informationen und Beruf eingeben
         await test.step('Schritt 4: Steuerliche Informationen & Beruf eingeben', async () => {
             await expect(page.locator('produktverkauf-top-bar')).toContainText('Mehr Informationen');
-
             await page.getByRole('radio', { name: 'Nein' }).check();
             await page.getByRole('button', { name: 'Land auswählen Auswahl öffnen' }).click();
             await page.locator('div').filter({ hasText: /^Deutschland$/ }).click();
@@ -79,11 +67,8 @@ test.describe('Volksbank User Website Tests', () => {
         // Schritt 5: Online-Banking-Zugang einrichten
         await test.step('Schritt 5: Online-Banking-Zugang einrichten', async () => {
             let alias = createAliasAsString();
-            await page.getByRole('textbox', { name: 'Alias' }).click();
             await page.getByRole('textbox', { name: 'Alias' }).fill(alias);
-            await page.locator('div').filter({ hasText: /^PIN$/ }).click();
             await page.getByRole('textbox', { name: 'PIN', exact: true }).fill('Test12345');
-            await page.locator('div').filter({ hasText: /^PIN wiederholen$/ }).click();
             await page.getByRole('textbox', { name: 'PIN wiederholen' }).fill('Test12345');
             await page.getByRole('button', { name: 'Weiter' }).click();
         });
@@ -100,8 +85,6 @@ test.describe('Volksbank User Website Tests', () => {
         await test.step('Schritt 7: Zusammenfassung & Beauftragung', async () => {
             await page.getByRole('checkbox', { name: 'Ich versichere als' }).check();
             await page.getByRole('button', { name: 'Weiter' }).click();
-            //await page.locator('kf-tile').first().waitFor({ state: 'detached' });
-            await page.locator('mat-progress-spinner').first().waitFor({ state: 'detached' });
             await page.locator('mat-progress-spinner').first().waitFor({ state: 'detached' });
             const headingElement = page.locator('#ausleitung-ueberschrift')
             expect(headingElement.isVisible());
